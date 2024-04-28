@@ -2,30 +2,47 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginStart="16dp"
     android:layout_marginTop="8dp"
-    android:layout_marginEnd="16dp">
+    android:layout_marginEnd="16dp"
+    app:cardBackgroundColor="#2196F3">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000000"
+            android:textSize="16sp"
             android:text="Title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#B3000000"
+            android:textColor="#B3FFFFFF"
             android:text="Description"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            app:srcCompat="@drawable/ic_delete"
+            android:tint="#fff" />
+
+    </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

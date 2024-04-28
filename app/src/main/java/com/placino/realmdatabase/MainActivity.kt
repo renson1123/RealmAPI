@@ -1,9 +1,11 @@
 package com.placino.realmdatabase
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.ViewCompat
@@ -36,6 +38,33 @@ class MainActivity : AppCompatActivity() {
 
         btnInsert.setOnClickListener{ insertArticle() }
         btnGet.setOnClickListener { getArticles() }
+        articleAdapter?.setOnActionClickListener(object : OnActionClick{
+            override fun onClickDelete(view: View, article: ArticleModel) {
+                deleteArticle(article)
+            }
+
+        })
+    }
+
+    private fun deleteArticle(articleModel: ArticleModel){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Delete")
+        builder.setMessage("Are you sure you want to delete this article?")
+        builder.setIcon(R.drawable.ic_delete)
+        builder.setPositiveButton("YES") { d, _ ->
+            viewModel.deleteArticle(articleModel.id.orEmpty())
+            viewModel.getAllArticles()
+            Toast.makeText(this, "Article deleted...", Toast.LENGTH_SHORT).show()
+            d.dismiss()
+        }
+
+        builder.setNegativeButton("NO") { d, _ ->
+            d.dismiss()
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+
     }
 
     private fun getArticles(){

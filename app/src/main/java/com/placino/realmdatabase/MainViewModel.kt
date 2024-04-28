@@ -3,6 +3,7 @@ package com.placino.realmdatabase
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
+import io.realm.kotlin.deleteFromRealm
 import java.util.UUID
 
 class MainViewModel : ViewModel(){
@@ -21,5 +22,12 @@ class MainViewModel : ViewModel(){
     fun getAllArticles(){
         val articles = realm.where(ArticleModel::class.java).findAll()
         allArticle.value = realm.copyFromRealm(articles)
+    }
+
+    fun deleteArticle(id: String){
+        val article = realm.where(ArticleModel::class.java).equalTo("id", id).findFirst()
+        realm.executeTransaction{
+            article?.deleteFromRealm()
+        }
     }
 }

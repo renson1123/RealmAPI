@@ -42,7 +42,7 @@ class ArticleHolder(private val view: View) : RecyclerView.ViewHolder(view){
 
     fun bindView(article: ArticleModel, onActionClick: OnActionClick?) {
         tvTitle = view.findViewById(R.id.tv_title)
-        tvDes = view.findViewById(R.id.ed_des)
+        tvDes = view.findViewById(R.id.tv_des)
         ivDelete = view.findViewById(R.id.iv_delete)
 
         tvTitle.text = article.title

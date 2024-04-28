@@ -34,14 +34,14 @@ class ArticleHolder(private val view: View) : RecyclerView.ViewHolder(view){
 
     fun bindView(article: ArticleModel) {
         tvTitle = view.findViewById(R.id.tv_title)
-        tvDes = view.findViewById(R.id.ed_des)
+        tvDes = view.findViewById(R.id.tv_des)
 
         tvTitle.text = article.title
         tvDes.text = article.title
     }
 
     companion object{
-        const val LAYOUT = R.layout.layout_article_viewholder
+        val LAYOUT = R.layout.layout_article_viewholder
         fun create(parent: ViewGroup) = ArticleHolder(
             LayoutInflater.from(parent.context).inflate(LAYOUT, parent, false)
         )

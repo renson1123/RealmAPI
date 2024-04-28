@@ -1,6 +1,7 @@
 package com.placino.realmdatabase
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -43,7 +44,39 @@ class MainActivity : AppCompatActivity() {
                 deleteArticle(article)
             }
 
+            override fun onClickUpdate(view: View, article: ArticleModel) {
+                updateArticle(article)
+            }
+
         })
+    }
+
+    private fun updateArticle(articleModel: ArticleModel){
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.layout_dialog_input, null)
+        val edDialogTitle = dialogView.findViewById<AppCompatEditText>(R.id.ed_dialog_title)
+        val edDialogDes = dialogView.findViewById<AppCompatEditText>(R.id.ed_dialog_des)
+        val btnUpdate = dialogView.findViewById<Button>(R.id.btn_dialog_update)
+
+        // Set value to EditText
+        edDialogTitle.setText(articleModel.title)
+        edDialogDes.setText(articleModel.description)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        builder.setTitle(null)
+        builder.setMessage(null)
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        btnUpdate.setOnClickListener {
+            val id = articleModel.id.toString()
+            val title = edDialogTitle.text.toString()
+            val des = edDialogDes.text.toString()
+
+            viewModel.updateArticle(id, title, des)
+            Toast.makeText(this, "Article updated...", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun deleteArticle(articleModel: ArticleModel){

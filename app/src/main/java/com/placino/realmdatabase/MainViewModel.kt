@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
 import io.realm.kotlin.deleteFromRealm
+import io.realm.kotlin.where
 import java.util.UUID
 
 class MainViewModel : ViewModel(){
@@ -28,6 +29,15 @@ class MainViewModel : ViewModel(){
         val article = realm.where(ArticleModel::class.java).equalTo("id", id).findFirst()
         realm.executeTransaction{
             article?.deleteFromRealm()
+        }
+    }
+
+    fun updateArticle(id: String, title: String, des: String){
+        val article = realm.where(ArticleModel::class.java).equalTo("id", id).findFirst()
+        realm.executeTransaction{
+            article?.title = title
+            article?.description = des
+            realm.insertOrUpdate(article)
         }
     }
 }

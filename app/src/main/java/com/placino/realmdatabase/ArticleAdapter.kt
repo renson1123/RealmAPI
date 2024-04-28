@@ -39,17 +39,23 @@ class ArticleHolder(private val view: View) : RecyclerView.ViewHolder(view){
     private lateinit var tvTitle: AppCompatTextView
     private lateinit var tvDes: AppCompatTextView
     private lateinit var ivDelete: AppCompatImageView
+    private lateinit var ivUpdate: AppCompatImageView
 
     fun bindView(article: ArticleModel, onActionClick: OnActionClick?) {
         tvTitle = view.findViewById(R.id.tv_title)
         tvDes = view.findViewById(R.id.tv_des)
         ivDelete = view.findViewById(R.id.iv_delete)
+        ivUpdate = view.findViewById(R.id.iv_update)
 
         tvTitle.text = article.title
         tvDes.text = article.title
 
         ivDelete.setOnClickListener{
             onActionClick?.onClickDelete(it, article)
+        }
+
+        ivUpdate.setOnClickListener{
+            onActionClick?.onClickUpdate(it, article)
         }
     }
 
@@ -63,4 +69,5 @@ class ArticleHolder(private val view: View) : RecyclerView.ViewHolder(view){
 
 interface OnActionClick{
     fun onClickDelete(view: View, article: ArticleModel)
+    fun onClickUpdate(view: View, article: ArticleModel)
 }

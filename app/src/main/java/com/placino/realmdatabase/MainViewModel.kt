@@ -1,11 +1,13 @@
 package com.placino.realmdatabase
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
 import java.util.UUID
 
 class MainViewModel : ViewModel(){
     private var realm = Realm.getDefaultInstance()
+    val allArticle by lazy { MutableLiveData<List<ArticleModel>>() }
 
     fun addArticle(title: String, des: String){
         realm.executeTransaction {
@@ -14,5 +16,10 @@ class MainViewModel : ViewModel(){
             article.description = des
             realm.insertOrUpdate(article)
         }
+    }
+
+    fun getAllArticles(){
+        val articles = realm.where(ArticleModel::class.java).findAll()
+        allArticle.value = realm.copyFromRealm(articles)
     }
 }

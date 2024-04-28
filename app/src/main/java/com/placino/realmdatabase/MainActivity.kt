@@ -9,13 +9,18 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var edTitle: AppCompatEditText
     private lateinit var edDes: AppCompatEditText
     private lateinit var btnInsert: Button
+    private lateinit var btnGet: Button
+    private lateinit var rvArticle: RecyclerView
 
     private lateinit var viewModel: MainViewModel
+    private var articleAdapter: ArticleAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +29,17 @@ class MainActivity : AppCompatActivity() {
 
         initView()
 
+        viewModel.allArticle.observe(this) {
+            articleAdapter?.submitList(it)
+
+        }
+
         btnInsert.setOnClickListener{ insertArticle() }
+        btnGet.setOnClickListener { getArticles() }
+    }
+
+    private fun getArticles(){
+        viewModel.getAllArticles()
     }
 
     private fun insertArticle() {
@@ -38,6 +53,12 @@ class MainActivity : AppCompatActivity() {
         edTitle = findViewById(R.id.ed_title)
         edDes = findViewById(R.id.ed_des)
         btnInsert = findViewById(R.id.btn_insert)
+        btnGet = findViewById(R.id.btn_get)
+        rvArticle = findViewById(R.id.rv_article)
+
+        rvArticle.layoutManager = LinearLayoutManager(this)
+        articleAdapter = ArticleAdapter()
+        rvArticle.adapter = articleAdapter
 
     }
 }

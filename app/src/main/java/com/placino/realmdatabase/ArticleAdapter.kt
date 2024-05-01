@@ -46,7 +46,7 @@ class ArticleHolder(private val view: View) : RecyclerView.ViewHolder(view){
         ivDelete = view.findViewById(R.id.iv_delete)
 
         tvTitle.text = article.title
-        tvDes.text = article.title
+        tvDes.text = article.description
 
         ivDelete.setOnClickListener{
             onActionClick?.onClickDelete(it, article)
